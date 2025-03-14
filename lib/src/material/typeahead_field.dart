@@ -21,6 +21,7 @@ class TypeAheadField<T> extends RawTypeAheadField<T> {
     super.direction,
     SuggestionsErrorBuilder? errorBuilder,
     super.focusNode,
+    super.requiresFocus,
     super.hideKeyboardOnDrag,
     super.hideOnEmpty,
     super.hideOnError,

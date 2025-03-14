@@ -14,6 +14,8 @@ class SuggestionsSearch<T> extends StatefulWidget {
     required this.textEditingController,
     required this.suggestionsCallback,
     required this.child,
+    required this.focusNode,
+    this.requiresFocus = true,
     this.debounceDuration,
   });
 
@@ -58,6 +60,10 @@ class SuggestionsSearch<T> extends StatefulWidget {
   /// Defaults to `300 milliseconds`.
   /// {@endtemplate}
   final Duration? debounceDuration;
+
+  final FocusNode focusNode;
+
+  final bool requiresFocus;
 
   @override
   State<SuggestionsSearch<T>> createState() => _SuggestionsSearchState<T>();
@@ -139,6 +145,8 @@ class _SuggestionsSearchState<T> extends State<SuggestionsSearch<T>> {
   @override
   Widget build(BuildContext context) {
     return SuggestionsSearchTypingConnector<T>(
+      focusNode: widget.focusNode,
+      requiresFocus: widget.requiresFocus,
       controller: widget.controller,
       textEditingController: widget.textEditingController,
       child: SuggestionsSearchTextDebouncer(

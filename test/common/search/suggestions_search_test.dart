@@ -10,6 +10,7 @@ void main() {
     late TextEditingController textEditingController;
     late SuggestionsCallback<String> suggestionsCallback;
     late Duration debounceDuration;
+    late FocusNode focusNode;
 
     setUp(() {
       controller = SuggestionsController<String>();
@@ -22,11 +23,13 @@ void main() {
         ];
       };
       debounceDuration = const Duration(milliseconds: 0);
+      focusNode = FocusNode();
     });
 
     tearDown(() {
       controller.dispose();
       textEditingController.dispose();
+      focusNode.dispose();
     });
 
     testWidgets('loads entries correctly', (WidgetTester tester) async {
@@ -38,6 +41,7 @@ void main() {
               textEditingController: textEditingController,
               suggestionsCallback: suggestionsCallback,
               debounceDuration: debounceDuration,
+              focusNode: focusNode,
               child: const SizedBox(),
             ),
           ),
@@ -61,6 +65,7 @@ void main() {
                 throw Exception('Failed to load');
               },
               debounceDuration: debounceDuration,
+              focusNode: focusNode,
               child: const SizedBox(),
             ),
           ),
@@ -83,6 +88,7 @@ void main() {
               textEditingController: textEditingController,
               suggestionsCallback: suggestionsCallback,
               debounceDuration: debounceDuration,
+              focusNode: focusNode,
               child: const SizedBox(),
             ),
           ),
@@ -114,6 +120,7 @@ void main() {
                 return [count.toString()];
               },
               debounceDuration: debounceDuration,
+              focusNode: focusNode,
               child: const SizedBox(),
             ),
           ),
@@ -139,6 +146,7 @@ void main() {
               textEditingController: textEditingController,
               suggestionsCallback: suggestionsCallback,
               debounceDuration: debounceDuration,
+              focusNode: focusNode,
               child: const SizedBox(),
             ),
           ),
@@ -164,6 +172,7 @@ void main() {
               textEditingController: textEditingController,
               suggestionsCallback: suggestionsCallback,
               debounceDuration: debounceDuration,
+              focusNode: focusNode,
               child: const SizedBox(),
             ),
           ),

@@ -25,6 +25,7 @@ abstract class RawTypeAheadField<T> extends StatefulWidget {
     this.direction = VerticalDirection.down,
     required this.errorBuilder,
     this.focusNode,
+    this.requiresFocus = true,
     this.hideKeyboardOnDrag = false,
     this.hideOnEmpty = false,
     this.hideOnError = false,
@@ -146,6 +147,10 @@ abstract class RawTypeAheadField<T> extends StatefulWidget {
   /// {@macro flutter_typeahead.SuggestionsSearch.debounce}
   final Duration? debounceDuration;
 
+  /// Indicate if the TypeAheadField needs to be focused to be able to trigger the [onChanged] in the suggestions search.
+  /// Default is true
+  final bool? requiresFocus;
+
   @override
   State<RawTypeAheadField<T>> createState() => _RawTypeAheadFieldState<T>();
 }
@@ -153,12 +158,14 @@ abstract class RawTypeAheadField<T> extends StatefulWidget {
 class _RawTypeAheadFieldState<T> extends State<RawTypeAheadField<T>> {
   late TextEditingController controller;
   late FocusNode focusNode;
+  late bool requiresFocus;
 
   @override
   void initState() {
     super.initState();
     controller = widget.controller ?? TextEditingController();
     focusNode = widget.focusNode ?? FocusNode();
+    requiresFocus = widget.requiresFocus ?? false;
   }
 
   @override
@@ -209,6 +216,8 @@ class _RawTypeAheadFieldState<T> extends State<RawTypeAheadField<T>> {
       decorationBuilder: (context, child) => TextFieldTapRegion(
         child: SuggestionsSearch<T>(
           controller: SuggestionsController.of<T>(context),
+          focusNode: focusNode,
+          requiresFocus: requiresFocus,
           textEditingController: controller,
           suggestionsCallback: widget.suggestionsCallback,
           debounceDuration: widget.debounceDuration,

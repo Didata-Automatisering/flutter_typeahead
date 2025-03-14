@@ -11,11 +11,15 @@ class SuggestionsSearchTypingConnector<T> extends StatefulWidget {
     required this.controller,
     required this.textEditingController,
     required this.child,
+    required this.focusNode,
+    this.requiresFocus = true,
   });
 
   final SuggestionsController<T> controller;
   final TextEditingController textEditingController;
   final Widget child;
+  final FocusNode focusNode;
+  final bool requiresFocus;
 
   @override
   State<SuggestionsSearchTypingConnector<T>> createState() =>
@@ -27,6 +31,7 @@ class _SuggestionsSearchTypingConnectorState<T>
   String? previousText;
 
   void onTextChange() {
+    if (widget.requiresFocus && !widget.focusNode.hasFocus) return;
     if (previousText == widget.textEditingController.text) return;
     previousText = widget.textEditingController.text;
 
